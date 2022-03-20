@@ -1,0 +1,240 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #53898d, #456e7c, #527483);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        #form {
+            width: 50%;
+            margin: 20vh auto 0 auto;
+            padding: 20px;
+            background-color: whitesmoke;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        #form h1 {
+            color: #0f2027;
+            text-align: center;
+            font-style: normal;
+            font-weight: bold;
+        }
+        
+        #form button {
+            padding: 10px;
+            margin-top: 10px;
+            width: 100%;
+            color: white;
+            background-color: rgb(41, 57, 194);
+            border: none;
+            border-radius: 4px;
+        }
+        
+        .input-control {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .input-control input {
+            border: 2px solid #f0f0f0;
+            border-radius: 4px;
+            display: block;
+            font-size: 12px;
+            padding: 10px;
+            width: 100%;
+        }
+        
+        #lang {
+            border: 2px solid #f0f0f0;
+            border-radius: 4px;
+            display: block;
+            font-size: 12px;
+            padding: 10px;
+            width: 95%;
+        }
+        
+        .Gender {
+            margin-left: 10px;
+        }
+        
+        .input-control input:focus {
+            outline: 0;
+        }
+        
+        .input-control.success input {
+            border-color: #09c372;
+        }
+        
+        .input-control.error input {
+            border-color: #ff3860;
+        }
+        
+        .input-control .error {
+            color: #ff3860;
+            font-size: 9px;
+            height: 13px;
+        }
+        
+        .signin {
+            text-align: center;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form id="form" action="/">
+            <h1>REGISTRATION</h1>
+            <div class="input-control">
+                <label for="Name">Name</label>
+                <input id="Name" name="Name" type="text">
+                <div class="error"></div>
+            </div>
+            <div class="input-control">
+                <label for="Gender">Gender</label>
+            </div>
+
+            <div class="Gender">
+                <input id="Gender" name="Gender" type="radio" value="Male">Male
+                <input id="Gender" name="Gender" type="radio" value="Female">Female
+                <input id="Gender" name="Gender" type="radio" value="Other">Other<br><br><br>
+                <div class="error"></div>
+            </div>
+            <div class="input-control">
+                <label for="Phone">Contact-no</label>
+                <input id="Phone" name="Phone" type="tel">
+                <div class="error"></div>
+            </div>
+            <div class="input-control">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="text">
+                <div class="error"></div>
+            </div>
+            <div class="input-control">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password">
+                <div class="error"></div>
+            </div>
+            <div class="input-control">
+                <label for="password2">Password again</label>
+                <input id="password2" name="password2" type="password">
+                <div class="error"></div>
+            </div>
+            <div class="input-control" id="lang">
+                <label for="Language">Language</label>
+                <select name="Language" id="Language">
+                    <option value="English">English</option>
+                    <option value="Hindi">Hindi</option>
+                </select>
+                <div class="error"></div>
+            </div>
+            <div class="input-control" id="lang">
+                <label for="How do you hear about us?">How do you hear about us?</label>
+                <select id="optionselect" name="optionselect">
+                    <option value="text">Through social media</option>
+                    <option value="text">from friends</option>
+                    <option value="text">from newspaper</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="container signin">
+            <p>Already have an account? <a href="#">Sign in</a>.</p>
+            <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+        </div>
+    </div>
+</body>
+<script>
+    const form = document.getElementById('form');
+    const username = document.getElementById('Name');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const password2 = document.getElementById('password2');
+    const Phone = document.getElementById('Phone');
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+
+        validateInputs();
+    });
+
+    const setError = (element, message) => {
+        const inputControl = element.parentElement;
+        const errorDisplay = inputControl.querySelector('.error');
+
+        errorDisplay.innerText = message;
+        inputControl.classList.add('error');
+        inputControl.classList.remove('success')
+    }
+
+    const setSuccess = element => {
+        const inputControl = element.parentElement;
+        const errorDisplay = inputControl.querySelector('.error');
+
+        errorDisplay.innerText = '';
+        inputControl.classList.add('success');
+        inputControl.classList.remove('error');
+    };
+
+    const isValidEmail = email => {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+
+    const validateInputs = () => {
+        const usernameValue = username.value.trim();
+        const emailValue = email.value.trim();
+        const passwordValue = password.value.trim();
+        const password2Value = password2.value.trim();
+        const phoneValue = Phone.value.trim();
+
+        if (usernameValue === '') {
+            setError(username, 'Username is required');
+        } else {
+            setSuccess(username);
+        }
+
+        if (emailValue === '') {
+            setError(email, 'Email is required');
+        } else if (!isValidEmail(emailValue)) {
+            setError(email, 'Provide a valid email address');
+        } else {
+            setSuccess(email);
+        }
+
+        if (passwordValue === '') {
+            setError(password, 'Password is required');
+        } else if (passwordValue.length < 8) {
+            setError(password, 'Password must be at least 8 character.')
+        } else {
+            setSuccess(password);
+        }
+
+        if (password2Value === '') {
+            setError(password2, 'Please confirm your password');
+        } else if (password2Value !== passwordValue) {
+            setError(password2, "Passwords doesn't match");
+        } else {
+            setSuccess(password2);
+        }
+        if (!phoneValue.match(/^[0]?[789]\d{9}$/)) {
+            setError(Phone, 'Please enter an Indian number')
+
+        } else {
+            setSuccess(Phone);
+        }
+
+
+    };
+</script>
+
+</html>
